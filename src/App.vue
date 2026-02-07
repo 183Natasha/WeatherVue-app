@@ -2,12 +2,16 @@
 import AppButton from './components/Button/AppButton.vue';
 import ApppStat from './components/ApppStat.vue';
 
+const data = {
+    label: "Влажность",
+    stat: "90%"
+}
 
 </script>
 
 <template>
     <main class="main">
-        <ApppStat label="Влажность" stat="90%"></ApppStat>
+        <ApppStat v-bind="data"></ApppStat>
         <ApppStat label="Осадки" stat="0%"></ApppStat>
         <ApppStat label="Ветер" stat="3 м/ч"></ApppStat>
         <AppButton>

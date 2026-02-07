@@ -1,7 +1,7 @@
 <script setup>
-const {label, stat}=defineProps({
+const {label='Не задано', stat}=defineProps({
     label: String,
-    stat: String
+    stat: String,
 })
 </script>
 
