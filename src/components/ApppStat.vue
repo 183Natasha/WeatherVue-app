@@ -18,10 +18,12 @@ const {label='Не задано', stat}=defineProps({
     justify-content: space-between;
     gap: 15px;;
     font-size: 28px;
+    
 }
 
 .stat-name {
     font-weight: 700;
+    text-transform: uppercase;
 }
 
 .stat-value {

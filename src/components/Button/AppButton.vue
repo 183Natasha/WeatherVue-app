@@ -20,6 +20,9 @@
     color: var(--color-primary);
     font-weight: 600;
     cursor: pointer;
+    display: flex;
+    gap: 9px;
+    align-items: center;
 }
 
 .btn:hover {

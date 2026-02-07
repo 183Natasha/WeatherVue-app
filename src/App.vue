@@ -1,7 +1,7 @@
 <script setup>
-import AppButton from './components/Button/AppButton.vue';
 import ApppStat from './components/ApppStat.vue';
-import IconLocation from './components/icons/IconLocation.vue';
+import CitySelect from './components/CitySelect.vue';
+
 
 const data = {
     label: "Влажность",
@@ -15,10 +15,8 @@ const data = {
         <ApppStat v-bind="data"></ApppStat>
         <ApppStat label="Осадки" stat="0%"></ApppStat>
         <ApppStat label="Ветер" stat="3 м/ч"></ApppStat>
-        <AppButton>
-            <IconLocation></IconLocation>
-            Сохранить
-        </AppButton>
+        <CitySelect></CitySelect>
+        
     </main>
 
 </template>
