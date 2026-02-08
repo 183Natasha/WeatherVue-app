@@ -8,6 +8,9 @@ const data = {
     stat: "90%"
 }
 
+function getCity(city){
+    console.log(city)
+}
 </script>
 
 <template>
@@ -15,7 +18,7 @@ const data = {
         <ApppStat v-bind="data"></ApppStat>
         <ApppStat label="Осадки" stat="0%"></ApppStat>
         <ApppStat label="Ветер" stat="3 м/ч"></ApppStat>
-        <CitySelect></CitySelect>
+        <CitySelect @city-select="getCity"></CitySelect>
         
     </main>
 
