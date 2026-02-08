@@ -18,7 +18,7 @@ function getCity(city){
         <ApppStat v-bind="data"></ApppStat>
         <ApppStat label="Осадки" stat="0%"></ApppStat>
         <ApppStat label="Ветер" stat="3 м/ч"></ApppStat>
-        <CitySelect @city-select="getCity"></CitySelect>
+        <CitySelect @select-city="getCity"></CitySelect>
         
     </main>
 
