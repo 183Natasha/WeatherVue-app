@@ -31,7 +31,7 @@ function edit() {
     <input id="city" type="text" name="city">
     <AppButton @click="select()">
         <IconLocation></IconLocation>
-        Сохранить
+        Сохранить.
     </AppButton>
 
 
