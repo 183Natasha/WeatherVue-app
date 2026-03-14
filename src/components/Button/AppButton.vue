@@ -22,7 +22,10 @@
     cursor: pointer;
     display: flex;
     gap: 9px;
+    width: 100%;
     align-items: center;
+    justify-content: center;
+    height: 53px;
 }
 
 .btn:hover {
