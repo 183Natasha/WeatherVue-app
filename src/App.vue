@@ -2,9 +2,12 @@
 import { ref, reactive, computed } from 'vue';
 import ApppStat from './components/ApppStat.vue';
 import CitySelect from './components/CitySelect.vue';
-import AppInput from './components/AppInput.vue';
+
 
 let savedCity = ref("Moscow")
+
+let arr = ref([1, 2, 3])
+let obj = ref({ name: "Nata", age: "30" })
 
 let data = ref({
     humidity: 90
@@ -25,6 +28,16 @@ function getCity(city) {
 </script>
 
 <template>
+    <ul>
+        <li v-for="(number, index) in arr" :key="number">
+            {{ index }}: {{ number }}
+        </li>
+    </ul>
+    <ul>
+        <li v-for="(name, key, index) in obj" :key="name">
+            {{ index }}-{{ name }}: {{ key }}
+        </li>
+    </ul>
     <main class="main">
         {{ savedCity }}
         <ApppStat v-bind="deteModified"></ApppStat>
