@@ -6,18 +6,28 @@ import CitySelect from './components/CitySelect.vue';
 
 let savedCity = ref("Moscow")
 
-let arr = ref([1, 2, 3])
-let obj = ref({ name: "Nata", age: "30" })
 
 let data = ref({
-    humidity: 90
+    humidity: 90,
+    rain: 0,
+    wind: 3
 })
 
 let deteModified = computed(() => {
-    return {
-        label: 'Влажность',
-        stat: data.value.humidity + "%"
-    }
+    return [
+        {
+            label: 'Влажность',
+            stat: data.value.humidity + "%"
+        },
+        {
+            label: 'Осадки',
+            stat: data.value.rain + "%"
+        },
+        {
+            label: 'Ветер',
+            stat: data.value.wind + "м/ч"
+        }
+    ]
 })
 
 function getCity(city) {
@@ -28,21 +38,10 @@ function getCity(city) {
 </script>
 
 <template>
-    <ul>
-        <li v-for="(number, index) in arr" :key="number">
-            {{ index }}: {{ number }}
-        </li>
-    </ul>
-    <ul>
-        <li v-for="(name, key, index) in obj" :key="name">
-            {{ index }}-{{ name }}: {{ key }}
-        </li>
-    </ul>
+
     <main class="main">
-        {{ savedCity }}
-        <ApppStat v-bind="deteModified"></ApppStat>
-        <ApppStat label="Осадки" stat="0%"></ApppStat>
-        <ApppStat label="Ветер" stat="3 м/ч"></ApppStat>
+        <div class="city">{{ savedCity }}</div>
+        <ApppStat v-for="item in deteModified" :key="item.label" v-bind="item"></ApppStat>
         <CitySelect @select-city="getCity"></CitySelect>
 
     </main>

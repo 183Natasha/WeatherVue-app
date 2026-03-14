@@ -1,8 +1,21 @@
 <script setup>
-import { ref } from 'vue';
+import { onBeforeMount, onMounted, onUpdated, ref } from 'vue';
 import AppButton from './Button/AppButton.vue';
 import IconLocation from './icons/IconLocation.vue';
 import AppInput from './AppInput.vue';
+
+onBeforeMount(() => {
+    console.log('City select - before mounted')
+})
+
+onMounted(() => {
+    console.log('City select mounted')
+})
+
+onUpdated(() => {
+    console.log('City select - updated')
+})
+
 
 const emit = defineEmits({
     selectCity(payload) {
@@ -12,6 +25,7 @@ const emit = defineEmits({
 })
 
 let isEdited = ref(false)
+const city = ref('')
 
 function select() {
     isEdited.value = false
@@ -26,14 +40,15 @@ function edit() {
 
 <template>
     <div class="city-select">
-        <div v-show="isEdited" class="city-input">
-            <AppInput placeholder="Введите город"></AppInput>
+        {{ city }}
+        <div v-if="isEdited" class="city-input">
+            <AppInput v-model="city" placeholder="Введите город"></AppInput>
             <AppButton @click="select()">
                 Сохранить.
             </AppButton>
         </div>
 
-        <AppButton v-show="!isEdited" @click="edit">
+        <AppButton v-if="!isEdited" @click="edit">
             <IconLocation></IconLocation>
             Изменить город
         </AppButton>
