@@ -1,19 +1,22 @@
 <script setup>
-import { onBeforeMount, onMounted, onUpdated, ref } from 'vue';
+import { onWatcherCleanup, ref, watch, watchEffect } from 'vue';
 import AppButton from './Button/AppButton.vue';
 import IconLocation from './icons/IconLocation.vue';
 import AppInput from './AppInput.vue';
 
-onBeforeMount(() => {
-    console.log('City select - before mounted')
-})
+let isEdited = ref(false)
+const city = ref('Moscow')
 
-onMounted(() => {
-    console.log('City select mounted')
-})
-
-onUpdated(() => {
-    console.log('City select - updated')
+// watch(city, (newValue, oldValue) => {
+//     console.log(`City new - ${newValue} `)
+//     console.log(`City old - ${oldValue} `)
+    
+// }, 
+//     {immediate: true}
+// )
+watchEffect(()=>{
+    console.log(city.value)
+    console.log(isEdited.value)
 })
 
 
@@ -23,9 +26,6 @@ const emit = defineEmits({
         return payload ? true : false
     }
 })
-
-let isEdited = ref(false)
-const city = ref('')
 
 function select() {
     isEdited.value = false
