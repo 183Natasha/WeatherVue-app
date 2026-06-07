@@ -7,7 +7,7 @@ import AppInput from './AppInput.vue';
 
 
 let isEdited = ref(false)
-const city = ref('Moscow')
+const city = ref('Moscowcg')
 
 // watch(city, (newValue, oldValue) => {
 //     console.log(`City new - ${newValue} `)
@@ -46,7 +46,7 @@ function edit() {
 
 <template>
     <div class="city-select">
-        {{ city }}
+        <!-- {{ city }} -->
         <div v-if="isEdited" class="city-input">
             <AppInput v-model="city" placeholder="Введите город" @keyup.enter="select()"></AppInput>
             <AppButton @click="select()">

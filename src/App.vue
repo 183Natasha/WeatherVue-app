@@ -2,13 +2,20 @@
 import { ref, reactive, computed } from 'vue';
 import ApppStat from './components/ApppStat.vue';
 import CitySelect from './components/CitySelect.vue';
+import Error from './components/Error.vue';
 
 
 // let savedCity = ref("Moscow")
 
 const API_ENDPOINT = 'https://api.weatherapi.com/v1'
 
+let errorMap = new Map([[1006, 'Указанный город не найден']])
+const errorDisplay = computed(() => {
+    return errorMap.get(error?.value?.error.code)
+})
+
 let data = ref()
+let error = ref()
 
 let deteModified = computed(() => {
     if (!data.value) {
@@ -25,7 +32,7 @@ let deteModified = computed(() => {
         },
         {
             label: 'Ветер',
-            stat: (data.value.current.wind_kph*1000/3600).toFixed(1) + " м/сек"
+            stat: (data.value.current.wind_kph * 1000 / 3600).toFixed(1) + " м/сек"
         }
     ]
 })
@@ -41,7 +48,15 @@ async function getCity(city) {
         days: 3,
     })
     const res = await fetch(`${API_ENDPOINT}/forecast.json?${params.toString()}`)
+    if (res.status != 200) {
+        error.value = await res.json()
+        data.value = null
+        console.log (error.value)
+        return
+    }
+
     data.value = await res.json()
+    error.value = null
     // console.log(data.value)
 }
 </script>
@@ -49,7 +64,8 @@ async function getCity(city) {
 <template>
 
     <main class="main">
-        <div class="city">{{ savedCity }}</div>
+        <Error :error="errorDisplay"></Error>
+        <!-- <div class="city">{{ savedCity }}</div> -->
         <ApppStat v-for="item in deteModified" :key="item.label" v-bind="item"></ApppStat>
         <CitySelect @select-city="getCity"></CitySelect>
 
