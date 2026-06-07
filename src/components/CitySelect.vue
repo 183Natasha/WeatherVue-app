@@ -1,8 +1,10 @@
 <script setup>
-import { onWatcherCleanup, ref, watch, watchEffect } from 'vue';
+import { onMounted, onWatcherCleanup, ref, watch, watchEffect } from 'vue';
 import AppButton from './Button/AppButton.vue';
 import IconLocation from './icons/IconLocation.vue';
 import AppInput from './AppInput.vue';
+
+
 
 let isEdited = ref(false)
 const city = ref('Moscow')
@@ -14,11 +16,15 @@ const city = ref('Moscow')
 // }, 
 //     {immediate: true}
 // )
-watchEffect(()=>{
-    console.log(city.value)
-    console.log(isEdited.value)
-})
+// watchEffect(()=>{
+//     console.log(city.value)
+//     console.log(isEdited.value)
+// })
 
+
+onMounted(()=>{
+    emit('selectCity', city.value)
+})
 
 const emit = defineEmits({
     selectCity(payload) {
@@ -29,7 +35,7 @@ const emit = defineEmits({
 
 function select() {
     isEdited.value = false
-    emit('selectCity', 'London')
+    emit('selectCity', city.value)
 }
 
 function edit() {
