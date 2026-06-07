@@ -32,7 +32,7 @@ let deteModified = computed(() => {
         },
         {
             label: 'Ветер',
-            stat: (data.value.current.wind_kph * 1000 / 3600).toFixed(1) + " м/сек"
+            stat: (data.value.current.wind_kph * 1000 / 3600).toFixed(1) + " м/с"
         }
     ]
 })

@@ -7,7 +7,7 @@ import AppInput from './AppInput.vue';
 
 
 let isEdited = ref(false)
-const city = ref('Moscowcg')
+const city = ref('Moscow')
 
 // watch(city, (newValue, oldValue) => {
 //     console.log(`City new - ${newValue} `)
