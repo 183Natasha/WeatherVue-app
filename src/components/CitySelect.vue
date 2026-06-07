@@ -28,7 +28,7 @@ onMounted(()=>{
 
 const emit = defineEmits({
     selectCity(payload) {
-        console.log(`Validating payload:${payload}`)
+        // console.log(`Validating payload:${payload}`)
         return payload ? true : false
     }
 })
@@ -48,7 +48,7 @@ function edit() {
     <div class="city-select">
         {{ city }}
         <div v-if="isEdited" class="city-input">
-            <AppInput v-model="city" placeholder="Введите город"></AppInput>
+            <AppInput v-model="city" placeholder="Введите город" @keyup.enter="select()"></AppInput>
             <AppButton @click="select()">
                 Сохранить.
             </AppButton>
