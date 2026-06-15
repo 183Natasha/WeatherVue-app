@@ -3,9 +3,10 @@ import { ref, reactive, computed } from 'vue';
 import ApppStat from './components/ApppStat.vue';
 import CitySelect from './components/CitySelect.vue';
 import Error from './components/Error.vue';
-import IconSun from './components/icons/IconSun.vue';
-import IconRain from './components/icons/IconRain.vue';
-import IconCloud from './components/icons/IconCloud.vue';
+// import IconSun from './components/icons/IconSun.vue';
+// import IconRain from './components/icons/IconRain.vue';
+// import IconCloud from './components/icons/IconCloud.vue';
+import DayCard from './components/DayCard.vue';
 
 
 // let savedCity = ref("Moscow")
@@ -71,6 +72,7 @@ async function getCity(city) {
         <IconRain></IconRain>
         <IconSun></IconSun>
         <IconCloud></IconCloud>
+        <DayCard weatrer-code="1000" temp='20'  :date="new Date()"></DayCard>
         <!-- <div class="city">{{ savedCity }}</div> -->
         <ApppStat v-for="item in deteModified" :key="item.label" v-bind="item"></ApppStat>
         <CitySelect @select-city="getCity"></CitySelect>
