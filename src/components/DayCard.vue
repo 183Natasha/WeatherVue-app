@@ -13,7 +13,7 @@
 <template>
 	<button class="day-card">
 		<IconSun v-if="weatrerCode == 1000"></IconSun>
-		<IconRain v-if="weatrerCode == 1009"></IconRain>
+		<IconRain v-if="weatrerCode == 1009 || weatrerCode == 1240"></IconRain>
 		<IconCloud v-if="weatrerCode == 1003"></IconCloud>
 		<div class="day-card__day">
 			{{ date.toLocaleDateString('ru-RU', { weekday: 'short' }) }}
@@ -24,6 +24,7 @@
 
 <style scoped>
 	.day-card {
+		width: 100%;
 		padding: 20px 24px;
 		background-color: var(--color-bg-card);
 		display: flex;
