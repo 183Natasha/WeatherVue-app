@@ -5,7 +5,6 @@
 	import Error from './components/Error.vue';
 	import DayCard from './components/DayCard.vue';
 
-
 	const API_ENDPOINT = 'https://api.weatherapi.com/v1';
 
 	let errorMap = new Map([[1006, 'Указанный город не найден']]);
@@ -15,7 +14,7 @@
 
 	let data = ref();
 	let error = ref();
-    let activeIndex = ref(0)
+	let activeIndex = ref(0);
 
 	let deteModified = computed(() => {
 		if (!data.value) {
@@ -56,47 +55,62 @@
 		error.value = null;
 		// console.log(data.value)
 	}
-
 </script>
 
 <template>
 	<main class="main">
-		<Error :error="errorDisplay"></Error>
-		<div
-			v-if="data"
-			class="stat-data"
-		>
-			<div class="stat-list">
-				<ApppStat
-					v-for="item in deteModified"
-					:key="item.label"
-					v-bind="item"
-				></ApppStat>
+		<div class="left"></div>
+		<div class="right">
+			<Error :error="errorDisplay"></Error>
+			<div
+				v-if="data"
+				class="stat-data"
+			>
+				<div class="stat-list">
+					<ApppStat
+						v-for="item in deteModified"
+						:key="item.label"
+						v-bind="item"
+					></ApppStat>
+				</div>
+
+				<div class="day-card-list">
+					<DayCard
+						v-for="(item, i) in data.forecast.forecastday"
+						:key="item.date"
+						:weatrer-code="item.day.condition.code"
+						:temp="item.day.avgtemp_c"
+						:date="new Date(item.date)"
+						:is-active="activeIndex == i"
+						@click="() => (activeIndex = i)"
+					></DayCard>
+				</div>
 			</div>
 
-			<div class="day-card-list">
-				<DayCard
-					v-for="(item, i) in data.forecast.forecastday"
-					:key="item.date"
-					:weatrer-code="item.day.condition.code"
-					:temp="item.day.avgtemp_c"
-					:date="new Date(item.date)"
-                    :is-active="activeIndex == i"
-                    @click = "() => activeIndex = i"
-				></DayCard>
-			</div>
+			<CitySelect @select-city="getCity"></CitySelect>
 		</div>
-
-		<CitySelect @select-city="getCity"></CitySelect>
 	</main>
 </template>
 
 <style scoped>
 	.main {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.right {
 		background: var(--color-bg-main);
 		padding: 60px 50px;
-		border-radius: 50px;
+		border-radius: 0 25px 25px 0;
 	}
+    .left{
+        width: 500px;
+        height: 680px;
+        border-radius: 30px;
+        background-image: url('public/bg.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 
 	.stat-list {
 		display: flex;
