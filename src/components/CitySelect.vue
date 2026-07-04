@@ -1,20 +1,41 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, onWatcherCleanup, ref, watch, watchEffect } from 'vue';
 import AppButton from './Button/AppButton.vue';
 import IconLocation from './icons/IconLocation.vue';
+import AppInput from './AppInput.vue';
+
+
+
+let isEdited = ref(false)
+const city = ref('Moscow')
+
+// watch(city, (newValue, oldValue) => {
+//     console.log(`City new - ${newValue} `)
+//     console.log(`City old - ${oldValue} `)
+    
+// }, 
+//     {immediate: true}
+// )
+// watchEffect(()=>{
+//     console.log(city.value)
+//     console.log(isEdited.value)
+// })
+
+
+onMounted(()=>{
+    emit('selectCity', city.value)
+})
 
 const emit = defineEmits({
     selectCity(payload) {
-        console.log(`Validating payload:${payload}`)
+        // console.log(`Validating payload:${payload}`)
         return payload ? true : false
     }
 })
 
-let isEdited = ref(false)
-
 function select() {
     isEdited.value = false
-    emit('selectCity', 'London')
+    emit('selectCity', city.value)
 }
 
 function edit() {
@@ -24,17 +45,34 @@ function edit() {
 </script>
 
 <template>
-    {{ isEdited }}
-    <AppButton @click="edit">
-        Изменить город
-    </AppButton>
-    <input id="city" type="text" name="city">
-    <AppButton @click="select()">
-        <IconLocation></IconLocation>
-        Сохранить
-    </AppButton>
+    <div class="city-select">
+        <!-- {{ city }} -->
+        <div v-if="isEdited" class="city-input">
+            <AppInput v-model="city" placeholder="Введите город" @keyup.enter="select()"></AppInput>
+            <AppButton @click="select()">
+                Сохранить.
+            </AppButton>
+        </div>
+
+        <AppButton v-if="!isEdited" @click="edit">
+            <IconLocation></IconLocation>
+            Изменить город
+        </AppButton>
+    </div>
+
+
 
 
 </template>
 
-<style scoped></style>
+<style scoped>
+.city-input {
+    display: flex;
+    gap: 12px;
+
+}
+
+.city-select {
+    width: 420px;
+}
+</style>
