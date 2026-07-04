@@ -9,26 +9,12 @@ import AppInput from './AppInput.vue';
 let isEdited = ref(false)
 const city = ref('Moscow')
 
-// watch(city, (newValue, oldValue) => {
-//     console.log(`City new - ${newValue} `)
-//     console.log(`City old - ${oldValue} `)
-    
-// }, 
-//     {immediate: true}
-// )
-// watchEffect(()=>{
-//     console.log(city.value)
-//     console.log(isEdited.value)
-// })
-
-
 onMounted(()=>{
     emit('selectCity', city.value)
 })
 
 const emit = defineEmits({
     selectCity(payload) {
-        // console.log(`Validating payload:${payload}`)
         return payload ? true : false
     }
 })
@@ -46,7 +32,6 @@ function edit() {
 
 <template>
     <div class="city-select">
-        <!-- {{ city }} -->
         <div v-if="isEdited" class="city-input">
             <AppInput v-model="city" placeholder="Введите город" @keyup.enter="select()"></AppInput>
             <AppButton @click="select()">

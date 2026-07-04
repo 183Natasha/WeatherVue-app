@@ -3,12 +3,8 @@
 	import ApppStat from './components/ApppStat.vue';
 	import CitySelect from './components/CitySelect.vue';
 	import Error from './components/Error.vue';
-	// import IconSun from './components/icons/IconSun.vue';
-	// import IconRain from './components/icons/IconRain.vue';
-	// import IconCloud from './components/icons/IconCloud.vue';
 	import DayCard from './components/DayCard.vue';
 
-	// let savedCity = ref("Moscow")
 
 	const API_ENDPOINT = 'https://api.weatherapi.com/v1';
 
@@ -19,6 +15,7 @@
 
 	let data = ref();
 	let error = ref();
+    let activeIndex = ref(0)
 
 	let deteModified = computed(() => {
 		if (!data.value) {
@@ -41,9 +38,6 @@
 	});
 
 	async function getCity(city) {
-		// console.log(city)
-		// savedCity.value = city
-		// data.value.humidity = 20
 		const params = new URLSearchParams({
 			q: city,
 			lang: 'ru',
@@ -81,11 +75,13 @@
 
 			<div class="day-card-list">
 				<DayCard
-					v-for="item in data.forecast.forecastday"
+					v-for="(item, i) in data.forecast.forecastday"
 					:key="item.date"
 					:weatrer-code="item.day.condition.code"
 					:temp="item.day.avgtemp_c"
 					:date="new Date(item.date)"
+                    :is-active="activeIndex == i"
+                    @click = "() => activeIndex = i"
 				></DayCard>
 			</div>
 		</div>
