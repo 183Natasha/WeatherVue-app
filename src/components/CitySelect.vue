@@ -1,25 +1,19 @@
 <script setup>
-	import { onMounted, onWatcherCleanup, ref, watch, watchEffect } from 'vue';
+	import { inject, onMounted, onWatcherCleanup, ref, watch, watchEffect } from 'vue';
 	import AppButton from './Button/AppButton.vue';
 	import IconLocation from './icons/IconLocation.vue';
 	import AppInput from './AppInput.vue';
 
 	let isEdited = ref(false);
-	const city = ref('Moscow');
+	
 
-	onMounted(() => {
-		emit('selectCity', city.value);
-	});
-
-	const emit = defineEmits({
-		selectCity(payload) {
-			return payload ? true : false;
-		},
-	});
+	const city = inject("city")
+	let inputValue = ref(city.value)
 
 	function select() {
 		isEdited.value = false;
-		emit('selectCity', city.value);
+		// emit('selectCity', city.value);
+		city.value = inputValue.value
 	}
 
 	function edit() {
@@ -36,7 +30,7 @@
 			class="city-input"
 		>
 			<AppInput
-				v-model="city"
+				v-model="inputValue"
                 v-focus
 				placeholder="Введите город"
 				@keyup.enter="select()"

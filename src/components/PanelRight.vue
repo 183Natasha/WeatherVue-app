@@ -8,7 +8,7 @@
 	const { error, data, activeIndex } = defineProps({
 		error: Object,
 		data: Object,
-		isActive: Number,
+		activeIndex: Number,
 	});
 
 	const emit = defineEmits(['select-index', 'select-city']);
@@ -66,7 +66,7 @@
 		</div>
 	</div>
 
-	<CitySelect @select-city="(city) => emit('select-city', city)"></CitySelect>
+	<CitySelect ></CitySelect>
 </template>
 
 <style>

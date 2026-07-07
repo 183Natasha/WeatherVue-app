@@ -1,5 +1,5 @@
 <script setup>
-	import { ref } from 'vue';
+	import { onMounted, provide, ref, watch } from 'vue';
 	import PanelRight from './components/PanelRight.vue';
 
 	const API_ENDPOINT = 'https://api.weatherapi.com/v1';
@@ -7,6 +7,18 @@
 	let data = ref();
 	let error = ref();
 	let activeIndex = ref(0);
+	const city = ref('Moscow');
+
+
+	provide('city', city)
+
+	watch (city, () => {
+		getCity(city.value)
+	})
+
+	onMounted( () => {
+		getCity(city.value)
+	})
 
 	async function getCity(city) {
 		const params = new URLSearchParams({
@@ -38,7 +50,7 @@
 				:error
 				:active-index="activeIndex"
 				@select-index="(i) => (activeIndex = i)"
-				@select-city="getCity"
+
 			></PanelRight>
 		</div>
 	</main>
