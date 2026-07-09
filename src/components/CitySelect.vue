@@ -1,26 +1,31 @@
 <script setup>
-	import { inject, onMounted, onWatcherCleanup, ref, watch, watchEffect } from 'vue';
+	import {
+		inject,
+		onMounted,
+		onWatcherCleanup,
+		ref,
+		watch,
+		watchEffect,
+	} from 'vue';
 	import AppButton from './Button/AppButton.vue';
 	import IconLocation from './icons/IconLocation.vue';
 	import AppInput from './AppInput.vue';
+	import { cityProvide } from '../constants.js';
 
 	let isEdited = ref(false);
-	
 
-	const city = inject("city")
-	let inputValue = ref(city.value)
+	const city = inject(cityProvide);
+	let inputValue = ref(city.value);
 
 	function select() {
 		isEdited.value = false;
 		// emit('selectCity', city.value);
-		city.value = inputValue.value
+		city.value = inputValue.value;
 	}
 
 	function edit() {
 		isEdited.value = true;
 	}
-
-
 </script>
 
 <template>
@@ -31,7 +36,7 @@
 		>
 			<AppInput
 				v-model="inputValue"
-                v-focus
+				v-focus
 				placeholder="Введите город"
 				@keyup.enter="select()"
 			></AppInput>
