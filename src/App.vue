@@ -2,6 +2,7 @@
 	import { onMounted, provide, ref, watch } from 'vue';
 	import PanelRight from './components/PanelRight.vue';
 	import { API_ENDPOINT, cityProvide } from './constants.js';
+	import PanelLeft from './components/PanelLeft.vue';
 
 	let data = ref();
 	let error = ref();
@@ -41,7 +42,11 @@
 
 <template>
 	<main class="main">
-		<div class="left"></div>
+		<div class="left">
+			<PanelLeft v-if="data"
+				:day-data="data.forecast.forecastday[activeIndex ]"
+			></PanelLeft>
+		</div>
 		<div class="right">
 			<PanelRight
 				:data
