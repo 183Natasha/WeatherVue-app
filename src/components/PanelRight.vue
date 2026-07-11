@@ -4,6 +4,7 @@
 	import CitySelect from './CitySelect.vue';
 	import ApppStat from './ApppStat.vue';
 	import { computed } from 'vue';
+	import { errorMap } from '../constants.js';
 
 	const { error, data, activeIndex } = defineProps({
 		error: Object,
@@ -13,7 +14,6 @@
 
 	const emit = defineEmits(['select-index', 'select-city']);
 
-	let errorMap = new Map([[1006, 'Указанный город не найден']]);
 	const errorDisplay = computed(() => {
 		return errorMap.get(error?.error?.code);
 	});
@@ -25,22 +25,25 @@
 		return [
 			{
 				label: 'Влажность',
-				stat: data.current.humidity + ' %',
+				stat: data.forecast.forecastday[activeIndex].day.avghumidity + ' %',
 			},
 			{
-				label: 'Облачность',
-				stat: data.current.cloud + ' %',
+				label: 'Вероятность дождя',
+				stat: data.forecast.forecastday[activeIndex].day.daily_chance_of_rain  + ' %',
 			},
 			{
 				label: 'Ветер',
-				stat: ((data.current.wind_kph * 1000) / 3600).toFixed(1) + ' м/с',
+				stat: ((data.forecast.forecastday[activeIndex].day.maxwind_kph  * 1000) / 3600).toFixed(1) + ' м/с',
 			},
 		];
 	});
 </script>
 
 <template>
-	<Error v-if='error' :error="errorDisplay"></Error>
+	<Error
+		v-if="error"
+		:error="errorDisplay"
+	></Error>
 	<div
 		v-if="data && data.current"
 		class="stat-data"
@@ -66,7 +69,7 @@
 		</div>
 	</div>
 
-	<CitySelect ></CitySelect>
+	<CitySelect></CitySelect>
 </template>
 
 <style>
